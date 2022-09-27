@@ -7,6 +7,9 @@ gesture = {
     6:'six', 7:'rock', 8:'spiderman', 9:'yeah', 10:'ok',
 }
 
+rps_gesture = {0:'rock', 5:'paper', 9:'scissors'}
+
+
 cap = cv2.VideoCapture(0)
 
 #Mediapipe Hands
@@ -65,9 +68,10 @@ while cap.isOpened():
             
             idx = int(results[0][0])
 
-            gesture_name = gesture[idx]
             
-            cv2.putText(img, text=gesture_name, org=(10, 50), fontFace=cv2.FONT_HERSHEY_SIMPLEX, fontScale=2, color=(0, 0, 255),thickness=2)
+            if idx in rps_gesture.keys():
+                gesture_name = rps_gesture[idx]
+                cv2.putText(img, text=gesture_name, org=(10, 50), fontFace=cv2.FONT_HERSHEY_SIMPLEX, fontScale=2, color=(0, 0, 255),thickness=2)
 
             mp_drawing.draw_landmarks(img, res, mp_hands.HAND_CONNECTIONS) # 손의 관절을 프레임에 그린다.
 
